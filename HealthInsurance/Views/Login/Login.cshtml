@@ -1,0 +1,15 @@
+﻿@model HealthInsurance.Models.Employee
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using (Html.BeginForm("Login","Login",FormMethod.Post))
+{
+  <label for="fname">First name:</label><br>
+  @Html.TextBoxFor(e=>e.UserName, new{@placeholder = "Enter UserName"})
+  <label for="lname">Last name:</label><br>
+  @Html.TextBoxFor(e=>e.Password, new{@placeholder = "Enter Password"})
+  <input type="submit" value="Submit">
+}
+
+

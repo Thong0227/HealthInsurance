@@ -161,9 +161,6 @@ namespace HealthInsurance.Controllers
           return (_context.Employees?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
-        public IActionResult Login()
-        {
-            return View();
-        }
+       
     }
 }
