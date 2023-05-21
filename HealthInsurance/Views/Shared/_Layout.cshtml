@@ -5,15 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HealthInsurance</title>
     <script src="~/assests/js/index.js"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    @*<link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />*@
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/HealthInsurance.styles.css" asp-append-version="true" />
     <link href="~/assests/css/index.css" rel="stylesheet" />
 </head>
 
-<body>
+<body class="min-vh-100 h-100">
     <header>
         @await Html.PartialAsync("_HeaderPartialView.cshtml")
     </header>
+
     <div class="container h-100">
         <main role="main" class="h-100">
             @RenderBody()
@@ -21,7 +24,9 @@
     </div>
 
     <footer class="border-top footer text-muted">
-        @await Html.PartialAsync("_FooterPartialView.cshtml")
+        <div class="container">
+            &copy; 2023 - MediHaven Insurance
+        </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     @*<script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>*@
