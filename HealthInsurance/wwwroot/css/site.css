@@ -1,0 +1,26 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.aspect-video-vertical {
+    aspect-ratio: 3 / 4;
+}
+
+.aspect-video {
+    aspect-ratio: 16 / 9;
+}
