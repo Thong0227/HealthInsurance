@@ -753,7 +753,7 @@ try {
 }
 
 function Sizzle( selector, context, results, seed ) {
-	var m, i, elem, nid, match, groups, newSelector,
+	var m, i, elem, nid, match, groups, policieselector,
 		newContext = context && context.ownerDocument,
 
 		// nodeType defaults to 9, since context defaults to document
@@ -835,7 +835,7 @@ function Sizzle( selector, context, results, seed ) {
 				// Exclude object elements
 				( nodeType !== 1 || context.nodeName.toLowerCase() !== "object" ) ) {
 
-				newSelector = selector;
+				policieselector = selector;
 				newContext = context;
 
 				// qSA considers elements outside a scoping root when evaluating child or
@@ -871,12 +871,12 @@ function Sizzle( selector, context, results, seed ) {
 						groups[ i ] = ( nid ? "#" + nid : ":scope" ) + " " +
 							toSelector( groups[ i ] );
 					}
-					newSelector = groups.join( "," );
+					policieselector = groups.join( "," );
 				}
 
 				try {
 					push.apply( results,
-						newContext.querySelectorAll( newSelector )
+						newContext.querySelectorAll( policieselector )
 					);
 					return results;
 				} catch ( qsaError ) {
