@@ -1,0 +1,28 @@
+﻿@model IEnumerable<HealthInsurance.Models.Policy>
+@{
+    ViewData["Title"] = "Danh sách bảo hiểm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="policies-page container">
+    <h2 style="font-size: 30px;text-align: center;font-weight: 700">Chính sách bảo hiểm</h2>
+    <div class="policies-list-search row">
+        @foreach (var item in Model)
+        {
+        <div class="policies-item col-lg-4 col-6">
+            <div class="img-policies">
+                <a asp-action="Details" asp-route-id="@item.Id">
+                    <img class="img-loop lazyload dt-width-100"
+                         src="@Html.DisplayFor(modelItem => item.Image)"
+                         alt="@Html.DisplayFor(modelItem => item.Name)" />
+                </a>
+            </div>
+            <div class="policies-name">
+                    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
+            </div>
+                <div class="policies-desc">@Html.Raw(item.Description)</div>
+                <a asp-action="Details" asp-route-id="@item.Id" class="see-more">Xem thêm</a>
+        </div>
+        }
+    </div>
+</section>

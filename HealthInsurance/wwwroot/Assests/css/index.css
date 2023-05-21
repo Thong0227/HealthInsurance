@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+
+    .policies-item img {
+        height: 200px
+    }
+}
+@media (max-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+    .policies-item img {
+        height: 150px
+    }
+}
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px;
+    font-size: 14px;
+}
+img{
+    width: 100%
+}
+.policies-item{
+    margin-top:20px;
+}
+
+.policies-name{
+    margin-top:7px;
+}
+.policies-name a {
+    text-decoration: none;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+}
+.policies-name a:hover {
+    color: #1d9bf0;
+}
+.policies-desc p{
+    display: -webkit-box;
+    -webkit-line-clamp:3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+.note p{
+    color:red;
+    font-size:15px;
+}
+.note ul li{
+    font-style:italic;
+}
+form .form-group{
+    margin-top:15px;
+}
+form label {
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+.groupBtn{
+    text-align: center;
+}
+.btnRegist {
+    background-color: #1d9bf0;
+    font-weight: 600;
+    border: none;
+    color: white;
+}
+.btnRegist:hover{
+    color:white;
+}

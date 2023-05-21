@@ -1,0 +1,55 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>_AdminLayout</title>
+    <script src="~/lib/jquery/dist/jquery.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <script src="~/adminassets/js/admin.js"></script>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="~/adminassets/css/admin.css" rel="stylesheet" />
+</head>
+<body class="w3-light-grey">
+    <!-- Top container -->
+    <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
+        <span class="w3-bar-item w3-right">Logo</span>
+    </div>
+
+    <!-- Sidebar/menu -->
+    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:250px;" id="mySidebar">
+        <br>
+        <div class="w3-container w3-row">
+            <div class="w3-col s4">
+                <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+            </div>
+            <div class="w3-col s8 w3-bar">
+                <span>Welcome, <strong>Admin</strong></span><br>
+            </div>
+        </div>
+        <hr>
+
+        <div class="w3-bar-block">
+            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="w3-bar-item w3-button w3-padding "><i class="fa-solid fa-house"></i>Home</a>
+            <a asp-area="Admin" asp-controller="Employees" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-users"></i>Employee List</a>
+            <a asp-area="Admin" asp-controller="Hospitals" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-sharp fa-solid fa-hospital"></i>Hospital</a>
+            <a asp-area="Admin" asp-controller="Policies" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-shield-heart"></i>Policies</a>
+            <a asp-area="Admin" asp-controller="PolicyOnEmps" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-hands-holding-child"></i>Insured Employee</a>
+        </div>
+    </nav>
+
+
+    <!-- Overlay effect when opening sidebar on small screens -->
+    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:270px;margin-top:43px;">
+        @RenderBody()
+        <!-- End page content -->
+    </div>
+</body>
+</html>
