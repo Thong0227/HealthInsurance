@@ -4,19 +4,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="container my-5">
-    <div class="mb-5">
-        <h1 class="display-5 fw-bold">
-            We Will Take Care About Your Health with a Policy
-        </h1>
+<div class="container min-vh-100">
+    <div class="min-vh-100 d-flex gap-5 justify-content-center align-items-center">
+        <div class="w-50 mx-auto">
+            <h1 class="display-5 fw-bold text-dark text-center">
+                Simplify Health Insurance with <span class="text-primary">MediHaven</span>
+            </h1>
+            <p class="lead text-center">
+                Streamline your coverage, simplify paperwork, and take control of your healthcare journey with our innovative platform.
+            </p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a>
+                    <button class="btn btn-primary">
+                        Login
+                    </button>
+                </a>
+                <a asp-controller="About" asp-action="Index">
+                    <button class="btn btn-light">
+                        Learn more →
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="w-50 mx-auto">
+            <img
+                src="/assets/Health insurance.svg"
+            />
+        </div>
     </div>
-    <p class="lead">
-        This project is aimed to developing an online Health Insurance System. An Organization wants to start Health Insurance against its employee.
-    </p>
-    <p class="lead">
-        The Medical care system will maintain all information related to the employee (Patient), maintenances of claims pertaining to the Insurance companies, information about all sort of medical services providing by the hospital to the corporate employess, claim settlements & adjustments against their services authorizing by the Insurance Companies
-    </p>
-    <p class="lead">
-        Additionally this system can also maintain the health related all information of the employees.
-    </p>
 </div>

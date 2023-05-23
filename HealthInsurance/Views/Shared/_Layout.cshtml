@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="min-vh-100">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -12,13 +12,12 @@
     <link href="~/assests/css/index.css" rel="stylesheet" />
 </head>
 
-<body class="min-vh-100 h-100">
-    <header>
+<body class="min-vh-100">
+    <header class="w-100 position-fixed top-0 left-0 right-0 z-3">
         @await Html.PartialAsync("_HeaderPartialView.cshtml")
     </header>
-
-    <div class="container h-100">
-        <main role="main" class="h-100">
+    <div class="container min-vh-100">
+        <main role="main" class="min-vh-100">
             @RenderBody()
         </main>
     </div>
