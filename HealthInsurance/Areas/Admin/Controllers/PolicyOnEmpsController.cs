@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Data;
 using HealthInsurance.Models;
-
+using System.Data;
+using Microsoft.AspNetCore.Authorization;
 namespace HealthInsurance.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class PolicyOnEmpsController : Controller
     {
         private readonly HealthInsuranceContext _context;
@@ -60,7 +62,7 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,PolicyId,EmployeeId,EmiSubmitted,StartDate,EndDate")] PolicyOnEmp policyOnEmp)
+        public async Task<IActionResult> Create([Bind("Id,PolicyId,EmployeeId,EmiSubmitted,StartDate,EndDate,PolicyStatus")] PolicyOnEmp policyOnEmp)
         {
             if (ModelState.IsValid)
             {
@@ -96,7 +98,7 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,PolicyId,EmployeeId,EmiSubmitted,StartDate,EndDate")] PolicyOnEmp policyOnEmp)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,PolicyId,EmployeeId,EmiSubmitted,StartDate,EndDate,PolicyStatus")] PolicyOnEmp policyOnEmp)
         {
             if (id != policyOnEmp.Id)
             {

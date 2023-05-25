@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Data;
 using HealthInsurance.Models;
-
+using System.Data;
+using Microsoft.AspNetCore.Authorization;
 namespace HealthInsurance.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class HospitalsController : Controller
     {
         private readonly HealthInsuranceContext _context;

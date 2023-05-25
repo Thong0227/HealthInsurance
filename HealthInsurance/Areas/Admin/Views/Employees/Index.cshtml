@@ -22,17 +22,20 @@
             <th>
                 @Html.DisplayNameFor(model => model.FullName)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.DateOfBirth)
-            </th>
+            </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
+            </th>*@
+            @*<th>
                 @Html.DisplayNameFor(model => model.JoinDate)
+            </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.UserRole)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.PolicyStatus)
@@ -52,18 +55,21 @@
             <td>
                 @Html.DisplayFor(modelItem => item.FullName)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.DateOfBirth)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
+            </td>*@
+            @*<td>
                 @Html.DisplayFor(modelItem => item.JoinDate)
-            </td>
+            </td>*@
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserRole)
+                </td>
             <td>
                 @Html.DisplayFor(modelItem => item.PolicyStatus)
             </td>

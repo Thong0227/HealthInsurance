@@ -7,10 +7,12 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Data;
 using HealthInsurance.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HealthInsurance.Controllers
 {
     [Area("Admin")]
+    [Authorize(Roles = "Administrator")]
     public class EmployeesController : Controller
     {
         private readonly HealthInsuranceContext _context;
@@ -57,7 +59,7 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,Password,FullName,DateOfBirth,Email,Address,JoinDate,PolicyStatus")] Employee employee)
+        public async Task<IActionResult> Create([Bind("Id,UserName,Password,FullName,DateOfBirth,Email,Address,JoinDate,PolicyStatus,UserRole")] Employee employee)
         {
             if (ModelState.IsValid)
             {
@@ -89,7 +91,7 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Password,FullName,DateOfBirth,Email,Address,JoinDate,PolicyStatus")] Employee employee)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,UserName,Password,FullName,DateOfBirth,Email,Address,JoinDate,PolicyStatus,UserRole")] Employee employee)
         {
             if (id != employee.Id)
             {

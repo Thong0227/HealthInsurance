@@ -1,17 +1,17 @@
 ﻿@model HealthInsurance.Models.Employee
 
 @{
-    ViewData["Title"] = "Edit";
-    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+    ViewData["Title"] = "Employee Information";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
+<h1>Employee Information</h1>
 
-<h4>Employee</h4>
-<hr />
-<div class="row">
+@if (User.Identity.IsAuthenticated)
+{
+    <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Index">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -21,7 +21,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="Password" class="control-label"></label>
-                <input asp-for="Password" class="form-control" />
+                <input type="password" value="***********" asp-for="Password" class="form-control" readonly />
                 <span asp-validation-for="Password" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -49,24 +49,24 @@
                 <input asp-for="JoinDate" class="form-control" />
                 <span asp-validation-for="JoinDate" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label asp-for="UserRole" class="control-label"></label>
-                <input asp-for="UserRole" class="form-control" />
-                <span asp-validation-for="UserRole" class="text-danger"></span>
-            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
-                    <input class="form-check-input" asp-for="PolicyStatus" /> @Html.DisplayNameFor(model => model.PolicyStatus)
+                    @Html.DisplayNameFor(model => model.PolicyStatus)
                 </label>
-            </div>
+                    @if (Model.PolicyStatus == true)
+                    {
+                        <i class="fa-solid fa-circle-check text-success"></i>
+                    }
+                    else
+                    {
+                        <i class="fa-solid fa-circle-check text-secondary"></i>
+                    }
+                </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+}
 

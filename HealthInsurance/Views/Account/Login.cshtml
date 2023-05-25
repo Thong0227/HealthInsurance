@@ -3,9 +3,15 @@
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@using (Html.BeginForm("Login","Login",FormMethod.Post))
+@using (Html.BeginForm("Login","Account",FormMethod.Post))
 {
-  <label for="fname">First name:</label><br>
+    if (ViewBag.LoginStatus != null && ViewBag.LoginStatus == 0)
+    {
+        <div>
+            Invalid UserName or Password, please try again!
+        </div>
+    }
+    <label for="fname">First name:</label><br>
   @Html.TextBoxFor(e=>e.UserName, new{@placeholder = "Enter UserName"})
   <label for="lname">Last name:</label><br>
   @Html.TextBoxFor(e=>e.Password, new{@placeholder = "Enter Password"})

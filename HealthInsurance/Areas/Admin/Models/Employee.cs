@@ -6,6 +6,7 @@ namespace HealthInsurance.Models
 {
     public class Employee
     {
+       
         [Key]
         public int Id { get; set; }
 
@@ -41,7 +42,8 @@ namespace HealthInsurance.Models
 
         [Required]
         public bool PolicyStatus { get; set; }
-
+        [Required]
+        public string UserRole { get; set; }
         public ICollection<PolicyOnEmp>? PolicyOnEmps { get; set; }
     }
 
