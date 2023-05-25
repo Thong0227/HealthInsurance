@@ -1,0 +1,43 @@
+﻿@model HealthInsurance.Models.Employee
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mx-auto min-vh-100 d-flex justify-content-center align-items-center">
+    <div class="w-50 d-flex flex-column justify-content-center align-items-center">
+        <img class="w-auto mb-5" style="height: 40px" src="/assets/mh-logo.svg" alt="MediHaven">
+        <h5 class="fs-3 fw-bold mb-4">
+            Sign in to your account
+        </h5>
+        <form class="w-100 d-flex flex-column align-content-center" style="max-width: 400px;" asp-controller="Login" asp-action="Login" method="post">
+            <div class="mb-4">
+                <label for="username" class="form-label">
+                    Username
+                </label>
+                <input id="username"
+                       class="form-control"
+                       placeholder="Enter your username"
+                       asp-for="UserName" />
+            </div>
+            <div class="mb-4">
+                <label for="password" class="form-label">
+                    Password
+                </label>
+                <input id="password"
+                       class="form-control"
+                       type="password"
+                       asp-for="Password"
+                       placeholder="Enter your password" />
+            </div>
+            <button type="submit" class="btn btn-primary mt-4">
+                Login
+            </button>
+        </form>
+    </div>
+    <div class="w-50 px-5">
+        <img src="/assets/Health checkup.svg" class="w-100 h-auto object-fit-contain" />
+    </div>
+</div>
+
+
