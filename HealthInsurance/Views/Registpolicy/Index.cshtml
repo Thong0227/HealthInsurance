@@ -4,51 +4,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <script src="~/assests/js/policyregist.js"></script>
-@if (User.Identity.IsAuthenticated)
-{
-    <h1>Đăng kí tham gia bảo hiểm</h1>
-
-    <div class="note">
-        <p>**Lưu ý :</p>
-        <ul>
-            <li>Nhân viên có thể đóng phí tham gia bảo hiểm từng tháng hoặc đóng toàn bộ</li>
-            <li>Thông tin của bạn sẽ được xử lí từ 1-2 ngày kể từ ngày đăng kí. Sau 1-2 ngày chưa có thông báo, liên hệ trực tiếp bộ phận Nhân sự để kiểm tra lại</li>
-            <li>Bảo hiểm sẽ chỉ có hiệu lực khi bạn hoàn thành thanh toán và được xác nhận bởi bộ phận nhân sự</li>
-        </ul>
-    </div>
-
-    <div class="row">
-        <div class=" col-lg-6 col-md-4 col-12">
-            <form method="post" id="registPolicy">
-                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <div class="form-group d-none">
-                    <label asp-for="EmployeeId" class="control-label">Nhân viên</label>
-                    <input asp-for="EmployeeId" value="@ViewData["EmployeeId"]" class="form-control" readonly/>
+<div class="my-5 min-vh-100 d-flex justify-content-center align-items-center">
+    <div>
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width: 64px; height: 64px;">
+                <i class="fa-solid fa-handshake fa-2xl text-primary"></i>
+            </div>
+            <h1 class="display-5 fw-bold mb-0">
+                Insurance Participation
+            </h1>
+        </div>
+        <div class="row">
+            <div class="col row">
+                <form method="post" id="registPolicy" style="max-width: 420px;">
+                    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="EmployeeId" value="@ViewData["EmployeeId"]" aria-labelledby="idHelpBlock" class="form-control" readonly disabled />
+                        <label asp-for="EmployeeId" class="form-label">Employee ID</label>
+                        <div id="idHelpBlock" class="form-text">
+                            This field displays your unique employee identification number.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <select asp-for="PolicyId" class="form-control" aria-labelledby="policyHelpBlock" asp-items="ViewBag.PolicyId"></select>
+                        <label asp-for="PolicyId" class="form-label">Policy type</label>
+                        <div id="policyHelpBlock" class="form-text">
+                            Select the type of health insurance policy that best suits your coverage needs and preferences.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="EmiSubmitted" class="form-control" aria-labelledby="emiHelpBlock" />
+                        <label asp-for="EmiSubmitted" class="form-label">Equated monthly installment (EMI)</label>
+                        <span asp-validation-for="EmiSubmitted" class="text-danger"></span>
+                        <div id="emiHelpBlock" class="form-text">
+                            Enter the Equated Monthly Installment (EMI) amount you are willing to pay for your health insurance policy.
+                        </div>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input asp-for="StartDate" class="form-control" aria-labelledby="startDateHelpBlock" />
+                        <label asp-for="StartDate" class="form-label">Start date</label>
+                        <span asp-validation-for="StartDate" class="text-danger"></span>
+                        <div id="startDateHelpBlock" class="form-text">
+                            Select the date when your health insurance coverage will begin.
+                        </div>
+                    </div>
+                    <div class="form-group groupBtn">
+                        <button type="button" class="btn btn-primary" onclick="registPolicy()">
+                            <i class="fa-solid fa-check"></i> Submit
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <div class="d-flex rounded border border-primary p-3" style="background-color: #cff4fc;">
+                    <div class="flex-shrink-0 mt-2">
+                        <i class="fa-solid fa-circle-info fa-2xl text-primary"></i>
+                    </div>
+                    <ul class="mb-0">
+                        <li>Employees can choose to pay monthly insurance premiums or pay in full.</li>
+                        <li>Your information will be processed within 1-2 days from the registration date. If you do not receive any notification after 1-2 days, please contact the Human Resources department for further verification.</li>
+                        <li>Insurance coverage will only be effective upon completion of payment and confirmation by the Human Resources department.</li>
+                    </ul>
                 </div>
-                <div class="form-group">
-                    <label asp-for="PolicyId" class="control-label">Lựa chọn loại bảo hiểm đăng kí</label>
-                    <select asp-for="PolicyId" class="form-control" asp-items="ViewBag.PolicyId"></select>
-                </div>
-                <div class="form-group">
-                    <label asp-for="EmiSubmitted" class="control-label">Phí bảo hiểm</label>
-                    <input asp-for="EmiSubmitted" class="form-control" />
-                    <span asp-validation-for="EmiSubmitted" class="text-danger"></span>
-                </div>
-                <div class="form-group">
-                    <label asp-for="StartDate" class="control-label"></label>
-                    <input asp-for="StartDate" class="form-control" />
-                    <span asp-validation-for="StartDate" class="text-danger"></span>
-                </div>
-                <div class="form-group groupBtn">
-                    <button type="button" class="btn btn-primary" onclick="registPolicy()">Đăng ký</button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
-}
-else
-{
-    <h1>Please Login before regist the policy ! <a href="/Account/Login">Login here</a> </h1>
-}
+</div>
+
 
 
