@@ -18,20 +18,20 @@
                 <h5 class="mb-3">
                     Policy status
                 </h5>
-                <div>
+                <div class="d-flex align-items-center">
                     @if (Model.PolicyStatus == true)
                     {
-                        <span>
-                            <i class="fa-solid fa-circle-check text-success"></i>
-                            Active
-                        </span>
+                        <div class="status-dot status-active"></div>
+                        <div>
+                            active
+                        </div>
                     }
                     else
                     {
-                        <span>
-                            <i class="fa-solid fa-circle-check text-error"></i>
-                            Inactive
-                        </span>
+                        <div class="status-dot status-inactive"></div>
+                        <div>
+                            inactive
+                        </div>
                     }
                 </div>
             </div>
