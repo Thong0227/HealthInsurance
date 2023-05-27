@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Data;
 using HealthInsurance.Models;
+using System.Diagnostics;
+
 namespace HealthInsurance.Controllers
 {
     public class Registpolicy : Controller
@@ -28,9 +30,13 @@ namespace HealthInsurance.Controllers
                 {
                     ViewData["EmployeeId"] = _emp.Id;
                 }
+
+                ViewData["PolicyId"] = new SelectList(_context.Policies, "Id", "Name");
+                return View();
+            } else
+            {
+                return RedirectToAction("Login", "Account");
             }
-            ViewData["PolicyId"] = new SelectList(_context.Policies, "Id", "Name");
-            return View();
         }
 
         public IActionResult Create()

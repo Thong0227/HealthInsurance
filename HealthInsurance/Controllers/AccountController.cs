@@ -75,7 +75,7 @@ namespace HealthInsurance.Controllers
 
                 if (isAdmin)
                 {
-                    return RedirectToAction("Enmployees", "Admin");
+                    return RedirectToAction("Employees", "Admin");
                 } else
                 {
                     return RedirectToAction("Index", "Account");
