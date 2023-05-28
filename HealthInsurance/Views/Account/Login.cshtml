@@ -3,13 +3,21 @@
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="~/assests/js/contact.js"></script>
 <div class="container mx-auto min-vh-100 d-flex justify-content-center align-items-center">
     <div class="w-50 d-flex flex-column justify-content-center align-items-center">
         <img class="w-auto mb-5" style="height: 40px" src="/assets/mh-logo.svg" alt="MediHaven">
         <h5 class="fs-3 fw-bold mb-4">
             Sign in to your account
         </h5>
+        @if (ViewBag.LoginStatus != null && ViewBag.LoginStatus == 0)
+        {
+            <div>
+                Invalid UserName or Password, please try again!
+            </div>
+        }
         <form class="w-100 d-flex flex-column align-content-center" style="max-width: 400px;" asp-controller="Account" asp-action="Login" method="post">
+           
             <div class="mb-4">
                 <label for="username" class="form-label">
                     Username

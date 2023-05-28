@@ -1,0 +1,62 @@
+﻿@model IEnumerable<HealthInsurance.Models.PolicyOnEmp>
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>PolicyOnEmp</h4>
+    <table class="table" id="tableData">
+        <thead>
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Policy)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EmiSubmitted)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StartDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EndDate)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PolicyStatus)
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Policy.Name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EmiSubmitted)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StartDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EndDate)
+                    </td>
+                    <td>
+                        @if (item.PolicyStatus.Equals(true))
+                        {
+                            <i class="fa-solid fa-circle-check text-success"></i> <span>Đã xác nhận</span>
+                        }
+                        else
+                        {
+                            <i class="fa-solid fa-circle-check text-secondary"></i> <span>Chờ duyệt</span>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

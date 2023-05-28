@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Models;
+using HealthInsurance.Areas.Admin.Models;
 
 namespace HealthInsurance.Data
 {
@@ -21,5 +22,9 @@ namespace HealthInsurance.Data
         public DbSet<HealthInsurance.Models.Policy>? Policies { get; set; }
 
         public DbSet<HealthInsurance.Models.PolicyOnEmp>? PolicyOnEmp { get; set; }
+
+        public DbSet<HealthInsurance.Areas.Admin.Models.Contact>? Contact { get; set; }
+
+        public DbSet<HealthInsurance.Areas.Admin.Models.News>? News { get; set; }
     }
 }

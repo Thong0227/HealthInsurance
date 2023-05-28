@@ -57,9 +57,31 @@ namespace HealthInsurance.Controllers
             {
                 _context.Add(policyOnEmp);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
             }
             return RedirectToAction("Index", "Registpolicy");
+        }
+
+        public IActionResult Details()
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+
+                var _emp = _context.Employees.Where(m => m.Email == userName).FirstOrDefault();
+                if (_emp != null)
+                {
+                    var policyOnEmp = _context.PolicyOnEmp
+                    .Where(p => p.Employee.Id == _emp.Id)
+                    .Include(p => p.Policy);
+                    if (policyOnEmp == null)
+                    {
+                        return NotFound();
+                    }
+
+                    return View(policyOnEmp);
+                }
+            }
+            return NotFound();
         }
     }
 }
