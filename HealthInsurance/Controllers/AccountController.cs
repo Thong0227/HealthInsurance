@@ -33,7 +33,13 @@ namespace HealthInsurance.Controllers
         }
         public IActionResult Login()
         {
-            return View();
+            if (User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Account");
+            } else
+            {
+                return View();
+            }
         }
         [HttpPost]
         public IActionResult Login(Employee emp)
@@ -64,7 +70,16 @@ namespace HealthInsurance.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
-                return RedirectToAction("Index", "Account");
+
+                var isAdmin = _emp.UserRole == "Administrator";
+
+                if (isAdmin)
+                {
+                    return RedirectToAction("Employees", "Admin");
+                } else
+                {
+                    return RedirectToAction("Index", "Account");
+                }
             }
             return View();
         }

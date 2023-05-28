@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -15,23 +14,22 @@
                 Streamline your coverage, simplify paperwork, and take control of your healthcare journey with our innovative platform.
             </p>
             <div class="d-flex gap-3 justify-content-center">
-                <a asp-controller="Login" asp-action="Index">
+                <a asp-controller="Account" asp-action="Login">
                     <button class="btn btn-primary">
-                        Login
+                        <span>Login</span>
+                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     </button>
                 </a>
                 <a asp-controller="About" asp-action="Index">
                     <button class="btn btn-light">
-                        Learn more →
+                        Learn more <i class="fa-solid fa-arrow-right"></i>
                     </button>
                 </a>
             </div>
         </div>
         <div class="w-50 mx-auto">
-            <img
-                class="w-100 object-fit-contain"
-                src="/assets/Health insurance.svg"
-            />
+            <img class="w-100 object-fit-contain"
+                 src="/assets/Health insurance.svg" />
         </div>
     </div>
 </div>

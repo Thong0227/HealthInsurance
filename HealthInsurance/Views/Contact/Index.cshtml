@@ -5,9 +5,12 @@
 <script src="~/assests/js/contact.js"></script>
 <div class="container py-5">
     <div class="pt-5">
-        <h1 class="display-5 fw-bold">
-            Contact us
-        </h1>
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width: 64px; height: 64px;">
+                <i class="fa-solid fa-envelope fa-2xl text-primary"></i>
+            </div>
+            <h1 class="display-5 fw-bold mb-0">Contact us</h1>
+        </div>
         <p class="lead">Please fill the required values</p>
     </div>
     <form id="contact-form" method="post">
@@ -62,4 +65,24 @@
             </button>
         </div>
     </form>
+    <script>
+        (() => {
+            'use strict'
+
+            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+            const forms = document.querySelectorAll('.needs-validation')
+
+            // Loop over them and prevent submission
+            Array.from(forms).forEach(form => {
+                form.addEventListener('submit', event => {
+                    if (!form.checkValidity()) {
+                        event.preventDefault()
+                        event.stopPropagation()
+                    }
+
+                    form.classList.add('was-validated')
+                }, false)
+            })
+        })()
+    </script>
 </div>
