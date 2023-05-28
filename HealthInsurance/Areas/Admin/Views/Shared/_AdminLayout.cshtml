@@ -1,58 +1,116 @@
-﻿<!DOCTYPE html>
+﻿@{
+    var currentRoute = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var viewingEmployees = currentRoute == "employees";
+    var viewingHospitals = currentRoute == "hospitals";
+    var viewingPolicies = currentRoute == "policies";
+    var viewingActivePolicies = currentRoute == "policyonemps";
+    var viewingContacts = currentRoute == "contacts";
+    var viewingNews = currentRoute == "news";
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>_AdminLayout</title>
+    <title>CMS - MediHaven</title>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <script src="~/adminassets/js/admin.js"></script>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="~/js/sidebar.js"></script>
+    <link rel="stylesheet" href="~/css/bootstrap.min.css" />
+    <link href="/css/sidebars.css" rel="stylesheet">
+    <script src="/js/sidebars.js"></script>
+    <script src="https://kit.fontawesome.com/dfd1d22a1e.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <link href="~/adminassets/css/admin.css" rel="stylesheet" />
 </head>
-<body class="w3-light-grey">
-    <!-- Top container -->
-    <div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
-        <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open();"><i class="fa fa-bars"></i>  Menu</button>
-        <span class="w3-bar-item w3-right">Logo</span>
+<body class="bg-white d-flex min-vh-100">
+    <div class="d-flex flex-column flex-shrink-0 p-3 bg-body-tertiary shadow-lg" style="width: 200px;">
+        <div class="d-flex justify-content-center mb-3">
+            <a class="px-2 py-1 fw-bold navbar-brand text-primary"
+               asp-area=""
+               asp-controller="Home"
+               asp-action="Index">
+                <img class="w-auto" style="height: 40px" src="/assets/mh-logo.svg" alt="MediHaven">
+            </a>
+        </div>
+        <ul class="nav nav-pills flex-column mb-auto">
+            <li class="nav-item">
+                <a class="nav-link @(viewingEmployees ? "active" : "")" aria-current="page" asp-area="Admin" asp-controller="Employees" asp-action="Index">
+                    <i class="fa-solid fa-users text-center" style="width: 20px;"></i>
+                    Employees
+                </a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-controller="Hospitals" asp-action="Index" class="nav-link @(viewingHospitals ? "active" : "")">
+                    <i class="fa-solid fa-hospital text-center" style="width: 20px;"></i>
+                    Hospitals
+                </a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-controller="Policies" asp-action="Index" class="nav-link @(viewingPolicies ? "active" : "")">
+                    <i class="fa-solid fa-file-shield text-center" style="width: 20px;"></i>
+                    Policies
+                </a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-controller="PolicyOnEmps" asp-action="Index" class="nav-link @(viewingActivePolicies ? "active" : "")">
+                    <i class="fa-solid fa-file-contract text-center" style="width: 20px;"></i>
+                    Active Policies
+                </a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-controller="Contacts" class="nav-link @(viewingContacts ? "active" : "")">
+                    <i class="fa-solid fa-envelope text-center" style="width: 20px;"></i>
+                    Contacts
+                </a>
+            </li>
+            <li>
+                <a asp-area="Admin" asp-controller="News" asp-action="Index" class="nav-link @(viewingNews ? "active" : "")">
+                    <i class="fa-solid fa-newspaper text-center" style="width: 20px;"></i>
+                    News
+                </a>
+            </li>
+        </ul>
+        <a class="w-100" href="@Url.Action("Logout", "Account")">
+            <button class="btn btn-light w-100 fw-semibold">
+                Logout
+            </button>
+        </a>
     </div>
-
     <!-- Sidebar/menu -->
-    <nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:250px;" id="mySidebar">
-        <br>
-        <div class="w3-container w3-row">
-            <div class="w3-col s4">
-                <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
-            </div>
-            <div class="w3-col s8 w3-bar">
-                <span>Welcome, <strong>Admin</strong></span><br>
-            </div>
-        </div>
-        <hr>
+    @*<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:250px;" id="mySidebar">
+    <br>
+    <div class="w3-container w3-row">
+    <div class="w3-col s4">
+    <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+    <span>Welcome, <strong>Admin</strong></span><br>
+    </div>
+    </div>
+    <hr>
 
-        <div class="w3-bar-block">
-            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="w3-bar-item w3-button w3-padding "><i class="fa-solid fa-house"></i>Admin Home</a>
-            <a asp-area="Admin" asp-controller="Employees" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-users"></i>Employee List</a>
-            <a asp-area="Admin" asp-controller="Hospitals" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-sharp fa-solid fa-hospital"></i>Hospital</a>
-            <a asp-area="Admin" asp-controller="Policies" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-shield-heart"></i>Policies</a>
-            <a asp-area="Admin" asp-controller="PolicyOnEmps" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-hands-holding-child"></i>Insured Employee</a>
-            <a asp-area="Admin" asp-controller="Contacts" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-file-signature"></i>Customer Contact</a>
-            <a asp-area="Admin" asp-controller="News" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-regular fa-newspaper"></i>News</a>
-            <a asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-arrow-right-to-bracket"></i>Back to Home</a>
-        </div>
-    </nav>
+    <div class="w3-bar-block">
+    <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="w3-bar-item w3-button w3-padding "><i class="fa-solid fa-house"></i>Admin Home</a>
+    <a asp-area="Admin" asp-controller="Employees" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-users"></i>Employee List</a>
+    <a asp-area="Admin" asp-controller="Hospitals" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-sharp fa-solid fa-hospital"></i>Hospital</a>
+    <a asp-area="Admin" asp-controller="Policies" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-shield-heart"></i>Policies</a>
+    <a asp-area="Admin" asp-controller="PolicyOnEmps" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-hands-holding-child"></i>Insured Employee</a>
+    <a asp-area="Admin" asp-controller="Contacts" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-file-signature"></i>Customer Contact</a>
+    <a asp-area="Admin" asp-controller="News" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-regular fa-newspaper"></i>News</a>
+    <a asp-area="" asp-controller="Home" asp-action="Index" class="w3-bar-item w3-button w3-padding"><i class="fa-solid fa-arrow-right-to-bracket"></i>Back to Home</a>
+    </div>
+    </nav>*@
 
 
     <!-- Overlay effect when opening sidebar on small screens -->
-    <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+    <div class="" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
 
     <!-- !PAGE CONTENT! -->
-    <div class="w3-main" style="margin-left:270px;margin-top:43px;">
+    <main class="w-100 p-5">
         @RenderBody()
         <!-- End page content -->
-    </div>
+    </main>
 </body>
 </html>

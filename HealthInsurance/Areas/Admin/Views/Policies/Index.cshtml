@@ -17,7 +17,7 @@
                 @Html.DisplayNameFor(model => model.Name)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Description)
             </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Emi)
@@ -29,7 +29,7 @@
                 @Html.DisplayNameFor(model => model.Image)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Content)
+            @Html.DisplayNameFor(model => model.Content)
             </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Hospital)
@@ -38,36 +38,42 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Description)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.Description)
             </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Emi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            @*<td>
-                 @Html.DisplayFor(modelItem => item.Content)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Emi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Image)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.Content)
             </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Hospital.Name)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.Hospital.Name)
+                </td>
+                <td>
+                    <div class="d-flex gap-3">
+                        <a asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <script>
@@ -75,4 +81,4 @@
         $('#tableData').DataTable();
     });
 </script>
-    
+

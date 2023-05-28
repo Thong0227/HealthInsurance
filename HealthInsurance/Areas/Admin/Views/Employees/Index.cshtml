@@ -10,7 +10,7 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table" id="tableData">
+<table class="table table-hover table-borderless" id="tableData">
     <thead>
         <tr>
             <th>
@@ -23,16 +23,16 @@
                 @Html.DisplayNameFor(model => model.FullName)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.DateOfBirth)
+            @Html.DisplayNameFor(model => model.DateOfBirth)
             </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.Email)
             </th>
             @*<th>
-                @Html.DisplayNameFor(model => model.Address)
+            @Html.DisplayNameFor(model => model.Address)
             </th>*@
             @*<th>
-                @Html.DisplayNameFor(model => model.JoinDate)
+            @Html.DisplayNameFor(model => model.JoinDate)
             </th>*@
             <th>
                 @Html.DisplayNameFor(model => model.UserRole)
@@ -44,42 +44,48 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullName)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.DateOfBirth)
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Password)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullName)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
             </td>*@
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Address)
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.Address)
             </td>*@
-            @*<td>
-                @Html.DisplayFor(modelItem => item.JoinDate)
+                @*<td>
+            @Html.DisplayFor(modelItem => item.JoinDate)
             </td>*@
                 <td>
                     @Html.DisplayFor(modelItem => item.UserRole)
                 </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PolicyStatus)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
+                <td>
+                    @Html.DisplayFor(modelItem => item.PolicyStatus)
+                </td>
+                <td>
+                    <div class="d-flex gap-3">
+                        <a asp-action="Edit" asp-route-id="@item.Id">
+                            <i class="fa-solid fa-pen"></i>
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id">
+                            <i class="fa-solid fa-trash" style="color: #ff0000;"></i>
+                        </a>
+                    </div>
+                </td>
+            </tr>
+        }
     </tbody>
 </table>
 <script>

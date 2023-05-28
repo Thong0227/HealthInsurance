@@ -1,0 +1,35 @@
+﻿<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
+    <div class="container-fluid">
+        <a class="px-2 py-1 fw-bold navbar-brand text-primary"
+           asp-area=""
+           asp-controller="Home"
+           asp-action="Index">
+            <img class="w-auto" style="height: 40px" src="/assets/mh-logo.svg" alt="MediHaven">
+        </a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+            <ul class="navbar-nav flex-grow-1">
+                <li class="nav-item">
+                    <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="Index">Employees</a>
+
+                </li>
+            </ul>
+            <div>
+                @{
+                    if (User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Account" asp-action="Logout">
+                            <button class="btn btn-primary">
+                                <span>Logout</span>
+                                <i class="fa-solid fa-arrow-right-from-bracket"></i>
+                            </button>
+                        </a>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</nav>
