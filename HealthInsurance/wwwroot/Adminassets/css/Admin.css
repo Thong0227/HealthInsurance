@@ -1,7 +1,19 @@
-﻿#mySidebar i{
+﻿* {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+}
+body{
+    overflow:scroll;
+}
+#mySidebar i{
     width: 30px;
 }
 
 .dataTable {
     margin-top: 20px;
+}
+#tableData_filter label{
+    font-weight:600;
 }

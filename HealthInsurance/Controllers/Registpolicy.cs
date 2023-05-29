@@ -61,6 +61,16 @@ namespace HealthInsurance.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (User.Identity.IsAuthenticated)
+                {
+                    var userName = User.Identity.Name;
+
+                    var _emp = _context.Employees.Where(m => m.Email == userName).FirstOrDefault();
+                    if (_emp != null)
+                    {
+                        policyOnEmp.EmployeeId = _emp.Id;
+                    }
+                }
                 _context.Add(policyOnEmp);
                 await _context.SaveChangesAsync();
             }
@@ -77,7 +87,7 @@ namespace HealthInsurance.Controllers
                 if (_emp != null)
                 {
                     var policyOnEmp = _context.PolicyOnEmp
-                    .Where(p => p.Employee.Id == _emp.Id)
+                    .Where(p => p.EmployeeId == _emp.Id)
                     .Include(p => p.Policy);
                     if (policyOnEmp == null)
                     {

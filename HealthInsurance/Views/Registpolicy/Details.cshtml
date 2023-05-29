@@ -6,10 +6,11 @@
 }
 
 <h1>Details</h1>
-
+@if(Model!=null)
+{
 <div>
     <h4>PolicyOnEmp</h4>
-    <table class="table" id="tableData">
+    <table class="table">
         <thead>
             <tr>
                 <th>
@@ -52,7 +53,7 @@
                         }
                         else
                         {
-                            <i class="fa-solid fa-circle-check text-secondary"></i> <span>Chờ duyệt</span>
+                            <i class="fa-solid fa-circle-check" style="color:gray"></i> <span>Chờ duyệt</span>
                         }
                     </td>
                 </tr>
@@ -60,3 +61,4 @@
         </tbody>
     </table>
 </div>
+}

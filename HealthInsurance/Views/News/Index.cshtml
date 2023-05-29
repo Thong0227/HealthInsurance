@@ -5,50 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Description)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Image)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Title)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Content)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Image)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<section class="policies-page container">
+    <h2 style="font-size: 30px;text-align: center;font-weight: 700">Hot News</h2>
+    <div class="policies-list-search row">
+        @foreach (var item in Model)
+        {
+            <div class="policies-item col-lg-4 col-6 w-100">
+                <div class="img-policies">
+                    <a asp-action="Details" asp-route-id="@item.Id">
+                        <img class="img-loop lazyload w-100"
+                         src="@Html.DisplayFor(modelItem => item.Image)"
+                         alt="@Html.DisplayFor(modelItem => item.Title)" />
+                    </a>
+                </div>
+                <div class="policies-name">
+                    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+                </div>
+                <div class="policies-desc">@Html.Raw(item.Description)</div>
+                <a asp-action="Details" asp-route-id="@item.Id" class="see-more">Xem thêm</a>
+            </div>
+        }
+    </div>
+</section>

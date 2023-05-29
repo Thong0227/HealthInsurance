@@ -19,9 +19,6 @@
             <th>
                 @Html.DisplayNameFor(model => model.Description)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Content)
-            </th>
             <th></th>
         </tr>
     </thead>
@@ -32,11 +29,8 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Content)
+                <td id="Description">
+                    @Html.Raw(item.Description)
                 </td>
                 <td>
                     <div class="d-flex gap-3">

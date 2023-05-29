@@ -80,3 +80,26 @@ html {
         box-shadow: 0 0 0 0 rgba(var(--status-color), 0);
     }
 }
+.policies-page{
+    margin-top:100px;
+}
+.policies-page img{
+    height:230px;
+    margin:20px 0px 10px 0;
+}
+.policies-name a{
+    font-weight:bold;
+    text-decoration:none;
+}
+.policies-desc {
+    color: #89888b;
+    font-size: 14px;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.see-more{
+    font-size:13px;
+}

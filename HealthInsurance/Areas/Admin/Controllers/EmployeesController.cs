@@ -46,7 +46,6 @@ namespace HealthInsurance.Controllers
                                        || e.UserName.Contains(searchString)
                                        || e.UserRole.Contains(searchString));
             }
-
             int pageSize = 3;
             int pageNumber = (page ?? 1);
 
