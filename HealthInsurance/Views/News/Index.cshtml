@@ -6,32 +6,43 @@
 }
 
 
-<section class="policies-page container">
-    <div class="d-flex align-items-center gap-3 mb-4">
-        <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width: 64px; height: 64px;">
-            <i class="fa-solid fa-newspaper fa-2xl text-primary"></i>
-        </div>
-        <h1 class="display-5 fw-bold mb-0">
-            News
-        </h1>
-    </div>
-    <div class="policies-list-search row">
-        @foreach (var item in Model)
-        {
-            <div class="policies-item col-lg-4 col-6 w-100">
-                <div class="img-policies">
-                    <a asp-action="Details" asp-route-id="@item.Id">
-                        <img class="img-loop lazyload w-100"
-                         src="@Html.DisplayFor(modelItem => item.Image)"
-                         alt="@Html.DisplayFor(modelItem => item.Title)" />
-                    </a>
-                </div>
-                <div class="policies-name">
-                    <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
-                </div>
-                <div class="policies-desc">@Html.Raw(item.Description)</div>
-                <a asp-action="Details" asp-route-id="@item.Id" class="see-more">Xem thêm</a>
+<div class="min-vh-100 py-5">
+    <div class="py-5">
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width: 64px; height: 64px;">
+                <i class="fa-solid fa-newspaper fa-2xl text-primary"></i>
             </div>
-        }
+            <h1 class="display-5 fw-bold mb-0">
+                News
+            </h1>
+        </div>
+        <p class="lead mb-2">
+            Health Insurance Matters: Stay Covered and Informed for a Healthy Future
+        </p>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-lg-4 col-6 my-3">
+                    <div class="img-policies">
+                        <a asp-action="Details" asp-route-id="@item.Id">
+                            <img class="img-loop lazyload w-100 rounded-4 border mb-3"
+                                 src="@Html.DisplayFor(modelItem => item.Image)"
+                                 alt="@Html.DisplayFor(modelItem => item.Title)" />
+                        </a>
+                    </div>
+                    <div class="fs-5 fw-bold line-clamp-2 mb-3">
+                        <a class=" text-decoration-none"
+                           asp-action="Details"
+                           asp-route-id="@item.Id">
+                            @Html.DisplayFor(modelItem => item.Title)
+                        </a>
+                    </div>
+                    <div class="policies-desc line-clamp-3">
+                        @Html.Raw(item.Description)
+                    </div>
+                </div>
+            }
+        </div>
+
     </div>
-</section>
+</div>
