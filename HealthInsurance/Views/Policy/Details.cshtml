@@ -8,45 +8,46 @@
     CultureInfo culture = new CultureInfo("en-US"); // Ví dụ: định dạng tiền tệ Mỹ
 }
 
-<div class="min-vh-100 py-5">
-    <div class="py-5">
-        <div class="d-flex align-items-center gap-3 mb-4">
-            <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width: 64px; height: 64px;">
-                <i class="fa-solid fa-handshake fa-2xl text-primary"></i>
-            </div>
-            <h1 class="display-5 fw-bold mb-0">
-                Policy detail
-            </h1>
-        </div>
-
-        <div>
-            <hr />
-            <dl class="row">
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Name)
-                </dt>
-                <dd class="col-sm-10">
+<div class="min-vh-100 py-5 d-flex align-items-center">
+    <div class="row py-5 g-5 align-items-center">
+        <div class="col-7">
+            <span class="text-primary fw-semibold fs-4">@Html.DisplayFor(model => model.Hospital.Name)</span>
+            <div class="d-flex align-items-center gap-3 mb-4">
+                <h1 class="display-5 fw-bold mb-0">
                     @Html.DisplayFor(model => model.Name)
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Emi)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.Raw(Model.Emi.ToString("C", culture).TrimEnd('0'))
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Amount)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.Raw(Model.Amount.ToString("C", culture).TrimEnd('0'))
-                </dd>
-                <dt class="col-sm-2">
-                    @Html.DisplayNameFor(model => model.Content)
-                </dt>
-                <dd class="col-sm-10">
-                    @Html.Raw(Model.Content)
-                </dd>
-            </dl>
+                </h1>
+            </div>
+            <div class="lead">
+                @Html.Raw(Model.Description)
+            </div>
+            <div>
+                @Html.Raw(Model.Content)
+            </div>
+            <div class="row mt-4">
+                <div class="col">
+                    <p class="mb-1 fw-semibold" style="color: #666;">
+                        @Html.DisplayNameFor(model => model.Emi)
+                    </p>
+                    <p class="fs-3 fw-bold text-dark">
+                        $@Html.Raw(Model.Emi)
+                    </p>
+                </div>
+                <div class="col">
+                    <p class="mb-1 fw-semibold" style="color: #666;">
+                        @Html.DisplayNameFor(model => model.Amount)
+                    </p>
+                    <p class="fs-3 fw-bold text-dark">
+                        $@Html.Raw(Model.Amount)
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-5">
+            <img class="w-100 rounded-4" 
+                src="@Model.Image"
+                alt=""
+                
+                />
         </div>
     </div>
 </div>
