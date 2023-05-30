@@ -7,39 +7,46 @@
 @{
     CultureInfo culture = new CultureInfo("en-US"); // Ví dụ: định dạng tiền tệ Mỹ
 }
-<h1>Details</h1>
 
-<div>
-    <h4>Policy</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Emi)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.Raw(Model.Emi.ToString("C", culture).TrimEnd('0'))
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Amount)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.Raw(Model.Amount.ToString("C", culture).TrimEnd('0'))
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Content)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.Raw(Model.Content)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+<div class="min-vh-100 py-5">
+    <div class="py-5">
+        <div class="d-flex align-items-center gap-3 mb-4">
+            <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width: 64px; height: 64px;">
+                <i class="fa-solid fa-handshake fa-2xl text-primary"></i>
+            </div>
+            <h1 class="display-5 fw-bold mb-0">
+                Policy detail
+            </h1>
+        </div>
+
+        <div>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Name)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.Name)
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Emi)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(Model.Emi.ToString("C", culture).TrimEnd('0'))
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Amount)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(Model.Amount.ToString("C", culture).TrimEnd('0'))
+                </dd>
+                <dt class="col-sm-2">
+                    @Html.DisplayNameFor(model => model.Content)
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.Raw(Model.Content)
+                </dd>
+            </dl>
+        </div>
+    </div>
 </div>

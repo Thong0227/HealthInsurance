@@ -5,7 +5,14 @@
 }
 
 <section class="policies-page container">
-    <h2 style="font-size: 30px;text-align: center;font-weight: 700">Policies</h2>
+    <div class="d-flex align-items-center gap-3 mb-4">
+        <div class="rounded-circle border d-flex justify-content-center align-items-center" style="width: 64px; height: 64px;">
+            <i class="fa-solid fa-handshake fa-2xl text-primary"></i>
+        </div>
+        <h1 class="display-5 fw-bold mb-0">
+            Policies
+        </h1>
+    </div>
     <div class="policies-list-search row">
         @foreach (var item in Model)
         {
@@ -21,7 +28,7 @@
                     <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Name)</a>
             </div>
                 <div class="policies-desc">@Html.Raw(item.Description)</div>
-                <a asp-action="Details" asp-route-id="@item.Id" class="see-more">Xem thêm</a>
+                <a asp-action="Details" asp-route-id="@item.Id" class="see-more">Read more</a>
         </div>
         }
     </div>
