@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using BCrypt.Net;
+using Microsoft.EntityFrameworkCore;
 
 namespace HealthInsurance.Controllers
 {
@@ -131,6 +132,24 @@ namespace HealthInsurance.Controllers
                 }
             }
             return View();
+        }
+
+        public ActionResult UpdateInfor([Bind("FullName,DateOfBirth,Email,Address")] Employee employee)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+
+                var _emp = _context.Employees.Where(m => m.Email == userName).FirstOrDefault();
+                _emp.Address = employee.Address;
+                _emp.Email = employee.Email;
+                _emp.FullName = employee.FullName;
+                _emp.DateOfBirth = employee.DateOfBirth;
+                _context.Update(_emp);
+                _context.SaveChanges();
+
+            }
+            return RedirectToAction("Index", "Account");
         }
     }
 }
