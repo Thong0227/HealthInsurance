@@ -9,6 +9,7 @@ using HealthInsurance.Data;
 using HealthInsurance.Models;
 using Microsoft.AspNetCore.Authorization;
 using PagedList;
+using BCrypt.Net;
 
 namespace HealthInsurance.Controllers
 {
@@ -24,34 +25,11 @@ namespace HealthInsurance.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index(string searchString, string currentFilter, int? page)
+        public async Task<IActionResult> Index()
         {
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
-
-            ViewBag.CurrentFilter = searchString;
-
-            var employees = from e in _context.Employees
-                           select e;
-
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                employees = employees.Where(e => e.FullName.Contains(searchString)
-                                       || e.UserName.Contains(searchString)
-                                       || e.UserRole.Contains(searchString));
-            }
-            int pageSize = 3;
-            int pageNumber = (page ?? 1);
-
-            return employees != null ?
-                        View(employees.ToPagedList(pageNumber, pageSize)) :
-                        Problem("Entity set 'HealthInsuranceContext.Employees'  is null.");
+            return _context.Employees != null ?
+                          View(await _context.Employees.ToListAsync()) :
+                          Problem("Entity set 'HealthInsuranceContext.Employees'  is null.");
         }
 
         // GET: Employees/Details/5
@@ -87,6 +65,7 @@ namespace HealthInsurance.Controllers
         {
             if (ModelState.IsValid)
             {
+                employee.Password = BCrypt.Net.BCrypt.HashPassword(employee.Password);
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

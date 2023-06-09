@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using BCrypt.Net;
 
 namespace HealthInsurance.Controllers
 {
@@ -44,41 +45,54 @@ namespace HealthInsurance.Controllers
         [HttpPost]
         public IActionResult Login(Employee emp)
         {
-            var _emp = _context.Employees.Where(m => m.UserName == emp.UserName && m.Password == emp.Password).FirstOrDefault();
-            if (_emp == null)
+            Employee storedUser = _context.Employees.Where(m => m.UserName == emp.UserName).FirstOrDefault();
+            if(storedUser != null)
             {
-                ViewBag.LoginStatus = 0;
-            }
-            else
-            {
-                var claims = new List<Claim>
+                bool isPasswordValid = BCrypt.Net.BCrypt.Verify(emp.Password, storedUser.Password);
+                if (isPasswordValid)
+                {
+                    var _emp = _context.Employees.Where(m => m.UserName == storedUser.UserName && m.Password == storedUser.Password).FirstOrDefault();
+                    if (_emp == null)
+                    {
+                        ViewBag.LoginStatus = 0;
+                    }
+                    else
+                    {
+                        var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, _emp.Email),
                     new Claim("FullName", _emp.FullName),
                     new Claim(ClaimTypes.Role, _emp.UserRole),
                 };
 
-                var claimsIdentity = new ClaimsIdentity(
-                    claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                        var claimsIdentity = new ClaimsIdentity(
+                            claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
-                var authProperties = new AuthenticationProperties
+                        var authProperties = new AuthenticationProperties
+                        {
+
+                        };
+
+                        HttpContext.SignInAsync(
+                            CookieAuthenticationDefaults.AuthenticationScheme,
+                            new ClaimsPrincipal(claimsIdentity),
+                            authProperties);
+
+                        var isAdmin = _emp.UserRole == "Administrator";
+
+                        if (isAdmin)
+                        {
+                            return RedirectToAction("Employees", "Admin");
+                        }
+                        else
+                        {
+                            return RedirectToAction("Index", "Account");
+                        }
+                    }
+                }
+                else
                 {
-                    
-                };
-
-                HttpContext.SignInAsync(
-                    CookieAuthenticationDefaults.AuthenticationScheme,
-                    new ClaimsPrincipal(claimsIdentity),
-                    authProperties);
-
-                var isAdmin = _emp.UserRole == "Administrator";
-
-                if (isAdmin)
-                {
-                    return RedirectToAction("Employees", "Admin");
-                } else
-                {
-                    return RedirectToAction("Index", "Account");
+                    ViewBag.LoginStatus = 0;
                 }
             }
             return View();
@@ -89,6 +103,34 @@ namespace HealthInsurance.Controllers
             CookieAuthenticationDefaults.AuthenticationScheme);
 
             return RedirectToAction("Index", "Home");
+        }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+            [HttpPost]
+        public ActionResult ChangePassword(string password, string newPassword)
+        {
+            if (User.Identity.IsAuthenticated)
+            {
+                var userName = User.Identity.Name;
+
+                var _emp = _context.Employees.Where(m => m.Email == userName).FirstOrDefault();
+                bool isPasswordValid = BCrypt.Net.BCrypt.Verify(password, _emp.Password);
+                if (isPasswordValid)
+                {
+                    string hashedPassword = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                    _emp.Password = hashedPassword;
+                    _context.Update(_emp);
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    return BadRequest(new { error = "Invalid password." });
+                }
+            }
+            return View();
         }
     }
 }

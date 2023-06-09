@@ -14,6 +14,81 @@ body{
 .dataTable {
     margin-top: 20px;
 }
-#tableData_filter label{
-    font-weight:600;
+#tableData_filter{
+    margin-top:15px;
+}
+#tableData_filter label {
+    font-weight: 600;
+}
+#tableData_filter input {
+    padding: 5px;
+    border: 1px solid #adb5bd;
+    border-radius:5px;
+    margin-left:10px;
+}
+.dataTables_paginate{
+    float:right;
+}
+
+.paginate_button.previous{
+    margin-right:10px
+}
+
+.paginate_button.next {
+    margin-left: 10px
+}
+.dataTables_paginate a {
+    text-decoration: none;
+    cursor: pointer;
+    padding:3px 5px;
+}
+
+.dataTables_paginate span a {
+    border: 1px solid #4285F4;
+    margin: 0px 3px;
+}
+.paginate_button.current {
+    background-color: #4285F4;
+    color: white;
+}
+h1 {
+    color: #4285F4;
+}
+.form-group{
+    margin-top:20px;
+}
+
+@keyframes pulse {
+    0% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(var(--status-color), 0.7);
+    }
+
+    70% {
+        transform: scale(1);
+        box-shadow: 0 0 0 6px rgba(var(--status-color), 0);
+    }
+
+    100% {
+        transform: scale(0.95);
+        box-shadow: 0 0 0 0 rgba(var(--status-color), 0);
+    }
+}
+.status-active {
+    --status-color: 66, 133, 244;
+    animation: pulse 2s infinite;
+}
+.status-dot {
+    display: block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(var(--status-color), 0.5);
+    background-color: rgb(var(--status-color));
+    margin-right: 6px;
+    animation: pulse 2s infinite;
+}
+.status-warning {
+    --status-color: 243, 156, 18;
+    animation: pulse 2s infinite;
 }

@@ -5,7 +5,7 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Index</h1>
+<h1>Manager Policy Request</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -53,8 +53,17 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.EndDate)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PolicyStatus)
+                <td class="d-flex align-items-center">
+                    @if (item.PolicyStatus.Equals(true))
+                    {
+                        <div class="status-dot status-active"></div>
+
+                        <span>Active</span>
+                    }
+                    else
+                    {
+                        <div class="status-dot status-warning"></div> <span>Pending</span>
+                    }
                 </td>
                 <td>
                     <div class="d-flex gap-3">

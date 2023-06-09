@@ -4,5 +4,28 @@
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Admin layout</h1>
+<div class="container min-vh-100">
+    <div class="min-vh-100 d-flex gap-5 justify-content-center align-items-center">
+        <div class="w-50 mx-auto d-flex flex-column align-items-center">
+            <img class="w-auto" style="height: 80px" src="/assets/mh-logo.svg" alt="MediHaven">
+            <h1 class="display-5 fw-bold text-dark text-center">
+                Simplify Health Insurance with <span class="text-primary">MediHaven</span>
+            </h1>
+            <p class="lead text-center">
+                Streamline your coverage, simplify paperwork, and take control of your healthcare journey with our innovative platform.
+            </p>
+            <div class="d-flex gap-3 justify-content-center">
+                <a asp-controller="About" asp-action="Index">
+                    <button class="btn btn-light">
+                        Learn more <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="w-50 mx-auto">
+            <img class="w-100 object-fit-contain"
+                 src="/assets/Health insurance.svg" />
+        </div>
+    </div>
+</div>
 

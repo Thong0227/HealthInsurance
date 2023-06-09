@@ -1,5 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using BCryptNet = BCrypt.Net.BCrypt;
+using Microsoft.AspNetCore.Identity;
 //using HealthInsurance.Migrations;
 
 namespace HealthInsurance.Models
@@ -13,11 +15,9 @@ namespace HealthInsurance.Models
         [Required]
         [StringLength(50)]
         public string UserName { get; set; }
-
         [Required]
-        [StringLength(50)]
+        [StringLength(100)]
         public string Password { get; set; }
-
         [Required]
         [StringLength(50)]
         public string FullName { get; set; }
