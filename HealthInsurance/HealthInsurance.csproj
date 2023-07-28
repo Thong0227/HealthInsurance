@@ -31,6 +31,12 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
+    <Folder Include="wwwroot\Upload\news\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Upload\policy\images.png" />
+    <None Include="wwwroot\Upload\policy\MapChart_Map.png" />
   </ItemGroup>
 
 </Project>

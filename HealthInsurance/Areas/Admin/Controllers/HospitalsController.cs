@@ -30,6 +30,28 @@ namespace HealthInsurance.Controllers
                           Problem("Entity set 'HealthInsuranceContext.Hospitals'  is null.");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Index(string keyword,string location,string phone)
+        {
+            var hospital = _context.Hospitals.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                hospital = hospital.Where(x => x.Name.Contains(keyword));
+            }
+            if (!string.IsNullOrEmpty(location))
+            {
+                hospital = hospital.Where(x => x.Location.Contains(location));
+            }
+            int phoneNumber;
+            if (!string.IsNullOrEmpty(phone))
+            {
+                hospital = hospital.Where(x => x.Phone.Contains(phone));
+            }
+            ViewBag.keyword = keyword;
+            ViewBag.location = location;
+            ViewBag.phone = phone;
+            return View(await hospital.ToListAsync());
+        }
         // GET: Hospitals/Details/5
         public async Task<IActionResult> Details(int? id)
         {

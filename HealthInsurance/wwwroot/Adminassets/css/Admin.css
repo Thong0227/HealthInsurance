@@ -92,3 +92,40 @@ h1 {
     --status-color: 243, 156, 18;
     animation: pulse 2s infinite;
 }
+.searchField input, .dropdownAttr select {
+    color: #000;
+    font-size: 13px;
+    height: 40px;
+    width: 100%;
+    border-radius: 5px;
+    padding-left: 10px;
+    border: 1px solid #4285F4;
+    padding-right: 15px;
+}
+.btnCreateNew {
+    margin: 15px 0;
+}
+.btnCreateNew a {
+        background-color: #2daab8;
+        border: 1px solid #2daab8;
+        color: #fff;
+        display: inline-block;
+        padding: 11px 23px;
+        text-transform: capitalize;
+        line-height: 16px;
+        font-size: 13px;
+        font-weight: 500;
+        border-radius: 5px;
+        white-space: nowrap;
+        -webkit-transition: .5s;
+        transition: .5s;
+        text-decoration:none
+}
+    .btnCreateNew a:hover {
+        background-color: #fff;
+        border: 1px solid #2daab8;
+        color: #2daab8;
+    }
+table thead{
+
+}

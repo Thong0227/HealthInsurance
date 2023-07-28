@@ -8,16 +8,17 @@ namespace HealthInsurance.Models
         [Key]
         public int Id { get; set; }
 
+        [ForeignKey("Policy")]
         public int PolicyId { get; set; }
 
-        [ForeignKey("PolicyId")]
         public Policy? Policy { get; set; }
 
+        [ForeignKey("Employee")]
         public int EmployeeId { get; set; }
-
-        [ForeignKey("EmployeeId")]
+        
         public Employee? Employee { get; set; }
 
+        [Range(0, double.MaxValue, ErrorMessage = "EmiSubmitted must be a positive value")]
         public decimal? EmiSubmitted { get; set; }
 
         [Required]

@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Areas.Admin.Models;
 using HealthInsurance.Data;
+using HealthInsurance.Models;
 
 namespace HealthInsurance.Areas.Admin.Controllers
 {
@@ -23,9 +24,18 @@ namespace HealthInsurance.Areas.Admin.Controllers
         // GET: Admin/News
         public async Task<IActionResult> Index()
         {
-              return _context.News != null ? 
-                          View(await _context.News.ToListAsync()) :
-                          Problem("Entity set 'HealthInsuranceContext.News'  is null.");
+            return View(await _context.News.ToListAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(string keyword)
+        {
+            var news = _context.News.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                news = news.Where(n => n.Title.Contains(keyword));
+            }
+            ViewBag.keyword = keyword;
+            return View(await news.ToListAsync());
         }
 
         // GET: Admin/News/Details/5
@@ -57,10 +67,22 @@ namespace HealthInsurance.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Description,Content,Image")] News news)
+        public async Task<IActionResult> Create(News news, IFormFile imageUpload)
         {
             if (ModelState.IsValid)
             {
+                if (imageUpload != null && imageUpload.Length > 0)
+                {
+                    // Lưu ảnh vào thư mục của ứng dụng
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Upload/news", imageUpload.FileName);
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await imageUpload.CopyToAsync(stream);
+                    }
+
+                    // Lưu đường dẫn ảnh vào đối tượng Policy
+                    news.Image = imageUpload.FileName; // Thêm dấu gạch chéo (/) sau "policy"
+                }
                 _context.Add(news);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -89,7 +111,7 @@ namespace HealthInsurance.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Content,Image")] News news)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Title,Description,Content,Image")] News news, IFormFile imageUpload)
         {
             if (id != news.Id)
             {
@@ -100,6 +122,18 @@ namespace HealthInsurance.Areas.Admin.Controllers
             {
                 try
                 {
+                    if (imageUpload != null && imageUpload.Length > 0)
+                    {
+                        // Lưu ảnh vào thư mục của ứng dụng
+                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Upload/news", imageUpload.FileName);
+                        using (var stream = new FileStream(imagePath, FileMode.Create))
+                        {
+                            await imageUpload.CopyToAsync(stream);
+                        }
+
+                        // Lưu đường dẫn ảnh vào đối tượng Policy
+                        news.Image = imageUpload.FileName; // Thêm dấu gạch chéo (/) sau "policy"
+                    }
                     _context.Update(news);
                     await _context.SaveChangesAsync();
                 }

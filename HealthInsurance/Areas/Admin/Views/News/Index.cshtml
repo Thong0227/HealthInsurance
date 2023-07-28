@@ -7,12 +7,29 @@
 
 <h1>News List</h1>
 
-<p>
+<div class="searchInner">
+    <form method="post">
+        <div class="row">
+            <div class="searchField col-md-4 col-6">
+                <input type="text" name="keyword" value="@ViewBag.keyword" placeholder="Search content here..." />
+            </div>
+          
+            <div class="btnFilter col-md col-12">
+                <input type="submit" value="Filter" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="btnCreateNew">
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table" id="tableData">
+</div>
+<table class="table">
     <thead>
         <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Image)
+            </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
             </th>
@@ -26,6 +43,10 @@
         @foreach (var item in Model)
         {
             <tr>
+                <td>
+                    <img style="width:50px;height:50px" src="~/Upload/news/@item.Image">
+                    @*@Html.DisplayFor(modelItem => item.Image)*@
+                </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Title)
                 </td>
@@ -46,8 +67,8 @@
         }
     </tbody>
 </table>
-<script>
+@*<script>
     $(document).ready(function () {
         $('#tableData').DataTable();
     });
-</script>
+</script>*@

@@ -31,6 +31,18 @@ namespace HealthInsurance.Areas.Admin.Controllers
                           Problem("Entity set 'HealthInsuranceContext.Contact'  is null.");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Index(string keyword)
+        {
+            var contact = _context.Contact.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                contact = contact.Where(x => x.FullName.Contains(keyword) || x.Email.Contains(keyword));
+            }
+            return View(await contact.ToListAsync());
+        }
+
+
         // GET: Admin/Contacts/Details/5
         public async Task<IActionResult> Details(int? id)
         {

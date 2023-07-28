@@ -25,8 +25,31 @@ namespace HealthInsurance.Controllers
         // GET: Policies
         public async Task<IActionResult> Index()
         {
+            var hospitalList = _context.Hospitals.ToList();
+            hospitalList.Add(new Hospital() { Id = 0, Name = "Select Hospital" });
+            ViewBag.HospitalId = new SelectList(hospitalList.OrderBy(x => x.Id), "Id", "Name");
             var healthInsuranceContext = _context.Policies.Include(p => p.Hospital);
             return View(await healthInsuranceContext.ToListAsync());
+        }
+        [HttpPost]
+        public async Task<IActionResult> Index(string keyword, int HospitalId)
+        {
+            var hospitalList = _context.Hospitals.ToList();
+            hospitalList.Add(new Hospital() { Id = 0, Name = "Select Hospital" });
+            ViewBag.HospitalId = new SelectList(hospitalList.OrderBy(x => x.Id), "Id", "Name");
+
+            var policies = _context.Policies.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                policies = policies.Where(x => x.Name.Contains(keyword));
+            }
+            if (HospitalId > 0)
+            {
+                policies = policies.Where(x => x.HospitalId == HospitalId);
+            }
+            policies = policies.Include(p => p.Hospital);
+            ViewBag.keyword = keyword;
+            return View(await policies.ToListAsync());
         }
 
         // GET: Policies/Details/5
@@ -51,7 +74,7 @@ namespace HealthInsurance.Controllers
         // GET: Policies/Create
         public IActionResult Create()
         {
-            ViewData["HospitalId"] = new SelectList(_context.Hospitals, "Id", "Location");
+            ViewData["HospitalId"] = new SelectList(_context.Hospitals, "Id", "Name");
             return View();
         }
 
@@ -60,10 +83,23 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Description,Emi,Amount,Image,Content,HospitalId")] Policy policy)
+        public async Task<IActionResult> Create(Policy policy, IFormFile imageUpload)
         {
             if (ModelState.IsValid)
             {
+                if (imageUpload != null && imageUpload.Length > 0)
+                {
+                    // Lưu ảnh vào thư mục của ứng dụng
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Upload/policy", imageUpload.FileName);
+                    using (var stream = new FileStream(imagePath, FileMode.Create))
+                    {
+                        await imageUpload.CopyToAsync(stream);
+                    }
+
+                    // Lưu đường dẫn ảnh vào đối tượng Policy
+                    policy.Image = imageUpload.FileName; // Thêm dấu gạch chéo (/) sau "policy"
+                }
+
                 _context.Add(policy);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
@@ -94,7 +130,7 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Description,Emi,Amount,Image,Content,HospitalId")] Policy policy)
+        public async Task<IActionResult> Edit(int id, Policy policy, IFormFile imageUpload)
         {
             if (id != policy.Id)
             {
@@ -105,6 +141,18 @@ namespace HealthInsurance.Controllers
             {
                 try
                 {
+                    if (imageUpload != null && imageUpload.Length > 0)
+                    {
+                        // Lưu ảnh vào thư mục của ứng dụng
+                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/Upload/policy", imageUpload.FileName);
+                        using (var stream = new FileStream(imagePath, FileMode.Create))
+                        {
+                            await imageUpload.CopyToAsync(stream);
+                        }
+
+                        // Lưu đường dẫn ảnh vào đối tượng Policy
+                        policy.Image = imageUpload.FileName; // Thêm dấu gạch chéo (/) sau "policy"
+                    }
                     _context.Update(policy);
                     await _context.SaveChangesAsync();
                 }

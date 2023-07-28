@@ -9,23 +9,26 @@ namespace HealthInsurance.Models
         [Key]
         public int Id { get; set; }
 
-        [Required]
-        [StringLength(100)]
-        public string Name { get; set; }
+        [Required(ErrorMessage = "Name is required")]
+        [StringLength(100, MinimumLength = 6, ErrorMessage = "Name must be between 6 and 100 characters")]
+        public string Name { get; set; } = "";
 
-        [StringLength(500)]
+        [StringLength(500,ErrorMessage = "Description must be not over 500 characters")]
         [AllowHtml]
         public string? Description { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Emi is required")]
+        [Range(0, double.MaxValue, ErrorMessage = "Emi must be a positive value")]
         public decimal Emi { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Amount is required")]
+        [Range(0, double.MaxValue, ErrorMessage = "Amount must be a positive value")]
         public decimal Amount { get; set; }
 
-        public string Image { get; set; }
-       
-        public string? Content { get; set; }
+        public string? Image { get; set; }
+
+        [Required(ErrorMessage = "Content is required")]
+        public string Content { get; set; } = "";
 
         [ForeignKey("Hospital")]
         public int HospitalId { get; set; }

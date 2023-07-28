@@ -6,11 +6,29 @@
 }
 
 <h1>Manager Hospitals</h1>
+<div class="searchInner">
+    <form method="post">
+        <div class="row">
+            <div class="searchField col-md-3 col-4">
+                <input type="text" name="keyword" value="@ViewBag.keyword" placeholder="Search name here..." />
+            </div>
+            <div class="searchField col-md-3 col-4">
+                <input type="text" name="location" value="@ViewBag.location" placeholder="Search location here..." />
+            </div>
+            <div class="searchField col-md-3 col-4">
+                <input type="text" name="phone" value="@ViewBag.phone" placeholder="Search phone here..." />
+            </div>
+            <div class="btnFilter col-md col-12">
+                <input type="submit" value="Filter" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
 
-<p>
+<div class="btnCreateNew">
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table" id="tableData">
+</div>
+<table class="table">
     <thead>
         <tr>
             <th>
@@ -52,8 +70,8 @@
         }
     </tbody>
 </table>
-<script>
+@*<script>
     let table = new DataTable('#tableData');
-</script>
+</script>*@
 
 
