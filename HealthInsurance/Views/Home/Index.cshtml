@@ -14,12 +14,18 @@
                 Streamline your coverage, simplify paperwork, and take control of your healthcare journey with our innovative platform.
             </p>
             <div class="d-flex gap-3 justify-content-center">
-                <a asp-controller="Account" asp-action="Login">
-                    <button class="btn btn-primary">
-                        <span>Login</span>
-                        <i class="fa-solid fa-arrow-right-to-bracket"></i>
-                    </button>
-                </a>
+                @{
+                    if (!User.Identity.IsAuthenticated)
+                    {
+                        <a asp-controller="Account" asp-action="Login">
+                            <button class="btn btn-primary">
+                                <span>Login</span>
+                                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+                            </button>
+                        </a>
+                    }
+                }
+                
                 <a asp-controller="About" asp-action="Index">
                     <button class="btn btn-light">
                         Learn more <i class="fa-solid fa-arrow-right"></i>

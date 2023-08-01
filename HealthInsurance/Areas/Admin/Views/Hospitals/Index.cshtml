@@ -1,5 +1,5 @@
-﻿@model IEnumerable<HealthInsurance.Models.Hospital>
-
+﻿@model X.PagedList.IPagedList<HealthInsurance.Models.Hospital>
+@using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
@@ -32,13 +32,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Name
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Phone)
+                Phone
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Location)
+                Location
             </th>
             <th></th>
         </tr>
@@ -70,6 +70,9 @@
         }
     </tbody>
 </table>
+<div>
+    @Html.PagedListPager(Model,page => Url.Action("Index","Hospitals",new { page = page}))
+</div>
 @*<script>
     let table = new DataTable('#tableData');
 </script>*@

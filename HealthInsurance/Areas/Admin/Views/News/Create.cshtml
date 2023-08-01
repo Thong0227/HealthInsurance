@@ -19,6 +19,10 @@
                 <span asp-validation-for="Title" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label>Image:</label>
+                <input type="file" name="imageUpload" class="form-control-file" />
+            </div>
+            <div class="form-group">
                 <label asp-for="Description" class="control-label"></label>
                 <textarea id="Description" asp-for="Description"></textarea>
                 <span asp-validation-for="Description" class="text-danger"></span>
@@ -28,19 +32,12 @@
                 <textarea id="Content" asp-for="Content"></textarea>
                 <span asp-validation-for="Content" class="text-danger"></span>
             </div>
-            <div class="form-group">
-                <label>Image:</label>
-                <input type="file" name="imageUpload" class="form-control-file" />
-            </div>
-            <div class="form-group">
+            <div class="form-group d-flex justify-content-around">
                 <input type="submit" value="Create" class="btn btn-primary" id="btnSave"/>
+                <a asp-action="Index" class="btn">Cancel</a>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 <script src="~/lib/build/ckeditor.js"></script>
 <script>

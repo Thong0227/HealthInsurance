@@ -1,4 +1,4 @@
-﻿
+﻿@using System.Security.Claims
 <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow">
     <div class="container-fluid">
         <a class="px-2 py-1 fw-bold navbar-brand text-primary"
@@ -55,18 +55,32 @@
                     <a class="nav-link text-dark" asp-area="" asp-controller="News" asp-action="Index">News</a>
                 </li>
             </ul>
-            <div>
-                @{
-                    if (User.Identity.IsAuthenticated)
-                    {
+            
+            @{
+                @if (User.Identity.IsAuthenticated)
+                {
+                    var identity = User.Identity as ClaimsIdentity;
+                    var roleClaim = identity?.FindFirst(ClaimTypes.Role)?.Value;
+
+                    <div class="d-flex">
+                        @if (roleClaim == "Administrator")
+                        {
+                            <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="me-3">
+                                <button class="btn btn-primary">
+                                    <span>Admin</span>
+                                    <i class="fa-solid fa-user"></i>
+                                </button>
+                            </a>
+                        }
+
                         <a asp-controller="Account" asp-action="Logout">
                             <button class="btn btn-primary">
-                                <span>Logout</span>                                
+                                <span>Logout</span>
                                 <i class="fa-solid fa-arrow-right-from-bracket"></i>
                             </button>
                         </a>
-                    } else
-                    {
+                    </div>
+                }else{
                         @if (ViewContext.RouteData.Values["controller"].ToString() != "Account" && ViewContext.RouteData.Values["action"].ToString() != "Login")
                         {
                             <a asp-controller="Account" asp-action="Login">
@@ -77,8 +91,8 @@
                             </a>
                         }
                     }
-                }
-            </div>
+            }
+            
         </div>
     </div>
 </nav>

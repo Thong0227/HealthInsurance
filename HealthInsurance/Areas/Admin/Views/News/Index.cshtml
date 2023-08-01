@@ -1,4 +1,5 @@
-﻿@model IEnumerable<HealthInsurance.Areas.Admin.Models.News>
+﻿@model X.PagedList.IPagedList<HealthInsurance.Areas.Admin.Models.News>
+@using X.PagedList.Mvc.Core
 
 @{
     ViewData["Title"] = "News List";
@@ -28,13 +29,13 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.Image)
+                Image
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Title)
+                Title
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Description)
+                Description
             </th>
             <th></th>
         </tr>
@@ -67,6 +68,9 @@
         }
     </tbody>
 </table>
+<div>
+    @Html.PagedListPager(Model,page => Url.Action("Index","News",new { page = page}))
+</div>
 @*<script>
     $(document).ready(function () {
         $('#tableData').DataTable();

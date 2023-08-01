@@ -9,6 +9,8 @@ using HealthInsurance.Data;
 using HealthInsurance.Models;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
+
 namespace HealthInsurance.Controllers
 {
     [Area("Admin")]
@@ -23,17 +25,21 @@ namespace HealthInsurance.Controllers
         }
 
         // GET: Hospitals
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-              return _context.Hospitals != null ? 
-                          View(await _context.Hospitals.ToListAsync()) :
-                          Problem("Entity set 'HealthInsuranceContext.Hospitals'  is null.");
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
+            var hospitals = await _context.Hospitals.ToListAsync();
+            IPagedList<Hospital> pagedHospitals = hospitals.ToPagedList(pageNumber, pageSize);
+            return View(pagedHospitals);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string keyword,string location,string phone)
+        public async Task<IActionResult> Index(string keyword,string location,string phone,int? page)
         {
             var hospital = _context.Hospitals.AsQueryable();
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
             if (!string.IsNullOrEmpty(keyword))
             {
                 hospital = hospital.Where(x => x.Name.Contains(keyword));
@@ -47,10 +53,12 @@ namespace HealthInsurance.Controllers
             {
                 hospital = hospital.Where(x => x.Phone.Contains(phone));
             }
+            var hospitals = await hospital.ToListAsync();
+            IPagedList<Hospital> pagedHospitals = hospitals.ToPagedList(pageNumber, pageSize);
             ViewBag.keyword = keyword;
             ViewBag.location = location;
             ViewBag.phone = phone;
-            return View(await hospital.ToListAsync());
+            return View(pagedHospitals);
         }
         // GET: Hospitals/Details/5
         public async Task<IActionResult> Details(int? id)

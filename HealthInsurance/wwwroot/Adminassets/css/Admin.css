@@ -30,24 +30,23 @@ body{
     float:right;
 }
 
-.paginate_button.previous{
-    margin-right:10px
+.PagedList-skipToPrevious {
+    margin-right: 10px
 }
 
-.paginate_button.next {
+.PagedList-skipToNext {
     margin-left: 10px
 }
-.dataTables_paginate a {
+.pagination a, .pagination span{
     text-decoration: none;
     cursor: pointer;
-    padding:3px 5px;
+    padding: 3px 5px;
 }
-
-.dataTables_paginate span a {
+.pagination li {
     border: 1px solid #4285F4;
     margin: 0px 3px;
 }
-.paginate_button.current {
+.pagination .active {
     background-color: #4285F4;
     color: white;
 }
@@ -126,6 +125,14 @@ h1 {
         border: 1px solid #2daab8;
         color: #2daab8;
     }
-table thead{
-
+table thead {
+    background: #356ac3;
+    color: white;
 }
+.nav-pills li {
+    margin: 10px 0;
+}
+    .nav-pills li a:hover {
+        color: #fff;
+        background-color: #4285F4;
+    }

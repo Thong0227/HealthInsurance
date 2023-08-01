@@ -8,8 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Data;
 using HealthInsurance.Models;
 using Microsoft.AspNetCore.Authorization;
-using PagedList;
 using BCrypt.Net;
+using X.PagedList;
 
 namespace HealthInsurance.Controllers
 {
@@ -25,13 +25,38 @@ namespace HealthInsurance.Controllers
         }
 
         // GET: Employees
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            return _context.Employees != null ?
-                          View(await _context.Employees.ToListAsync()) :
-                          Problem("Entity set 'HealthInsuranceContext.Employees'  is null.");
-        }
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
 
+            var employees = await _context.Employees.ToListAsync();
+
+            IPagedList<Employee> pagedEmployees = employees.ToPagedList(pageNumber, pageSize);
+
+            return View(pagedEmployees);
+        }
+       
+        [HttpPost]
+        public async Task<IActionResult> Index(string keyword, string role, int? page)
+        {
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
+            var employee = _context.Employees.AsQueryable();
+            if (!string.IsNullOrEmpty(keyword)){
+                employee = employee.Where(x => x.UserName.Contains(keyword) || x.FullName.Contains(keyword) || x.Email.Contains(keyword));
+            }
+            if (!string.IsNullOrEmpty(role))
+            {
+                employee = employee.Where(r => r.UserRole.Contains(role));
+            }
+            var employees = await employee.ToListAsync();
+
+            IPagedList<Employee> pagedEmployees = employees.ToPagedList(pageNumber, pageSize);
+            ViewBag.keyword = keyword;
+            ViewBag.role = role;
+            return View(pagedEmployees);
+        }
         // GET: Employees/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -166,6 +191,7 @@ namespace HealthInsurance.Controllers
             return (_context.Employees?.Any(e => e.Id == id)).GetValueOrDefault();
         }
 
+        
 
     }
 }

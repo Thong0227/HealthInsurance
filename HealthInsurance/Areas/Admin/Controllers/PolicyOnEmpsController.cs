@@ -9,6 +9,9 @@ using HealthInsurance.Data;
 using HealthInsurance.Models;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
+using System.Drawing.Printing;
+
 namespace HealthInsurance.Controllers
 {
     [Area("Admin")]
@@ -23,10 +26,35 @@ namespace HealthInsurance.Controllers
         }
 
         // GET: PolicyOnEmps
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             var healthInsuranceContext = _context.PolicyOnEmp.Include(p => p.Employee).Include(p => p.Policy);
-            return View(await healthInsuranceContext.ToListAsync());
+           
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
+
+            var policyActive = await healthInsuranceContext.ToListAsync();
+
+            IPagedList<PolicyOnEmp> pagedPolicyActive = policyActive.ToPagedList(pageNumber, pageSize);
+
+            return View(pagedPolicyActive);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Index(string keyword, int? page)
+        {
+            var policyOnEmp = _context.PolicyOnEmp.AsQueryable();
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
+            policyOnEmp = policyOnEmp.Include(p => p.Employee).Include(p => p.Policy);
+            if (!string.IsNullOrEmpty(keyword))
+            {
+                policyOnEmp = policyOnEmp.Where(x=> x.Policy.Name.Contains(keyword) || x.Employee.FullName.Contains(keyword));
+            }
+            var policyActive = await policyOnEmp.ToListAsync();
+            IPagedList<PolicyOnEmp> pagedPolicyActive = policyActive.ToPagedList(pageNumber, pageSize);
+            ViewBag.keyword = keyword;
+            return View(pagedPolicyActive);
         }
 
         // GET: PolicyOnEmps/Details/5
@@ -52,7 +80,7 @@ namespace HealthInsurance.Controllers
         // GET: PolicyOnEmps/Create
         public IActionResult Create()
         {
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Address");
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName");
             ViewData["PolicyId"] = new SelectList(_context.Policies, "Id", "Name");
             return View();
         }
@@ -70,7 +98,7 @@ namespace HealthInsurance.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "Address", policyOnEmp.EmployeeId);
+            ViewData["EmployeeId"] = new SelectList(_context.Employees, "Id", "FullName", policyOnEmp.EmployeeId);
             ViewData["PolicyId"] = new SelectList(_context.Policies, "Id", "Name", policyOnEmp.PolicyId);
             return View(policyOnEmp);
         }

@@ -8,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Data;
 using HealthInsurance.Models;
 using Microsoft.AspNetCore.Authorization;
+using X.PagedList;
+
 
 namespace HealthInsurance.Controllers
 {
@@ -23,18 +25,24 @@ namespace HealthInsurance.Controllers
         }
 
         // GET: Policies
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
             var hospitalList = _context.Hospitals.ToList();
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
             hospitalList.Add(new Hospital() { Id = 0, Name = "Select Hospital" });
             ViewBag.HospitalId = new SelectList(hospitalList.OrderBy(x => x.Id), "Id", "Name");
             var healthInsuranceContext = _context.Policies.Include(p => p.Hospital);
-            return View(await healthInsuranceContext.ToListAsync());
+            var policies = await healthInsuranceContext.ToListAsync();
+            IPagedList<Policy> pagedPolicy = policies.ToPagedList(pageNumber, pageSize);
+            return View(pagedPolicy);
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string keyword, int HospitalId)
+        public async Task<IActionResult> Index(string keyword, int HospitalId, int? page)
         {
             var hospitalList = _context.Hospitals.ToList();
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
             hospitalList.Add(new Hospital() { Id = 0, Name = "Select Hospital" });
             ViewBag.HospitalId = new SelectList(hospitalList.OrderBy(x => x.Id), "Id", "Name");
 
@@ -48,8 +56,10 @@ namespace HealthInsurance.Controllers
                 policies = policies.Where(x => x.HospitalId == HospitalId);
             }
             policies = policies.Include(p => p.Hospital);
+            var policiesList = await policies.ToListAsync();
+            IPagedList<Policy> pagedPolicy = policiesList.ToPagedList(pageNumber, pageSize);
             ViewBag.keyword = keyword;
-            return View(await policies.ToListAsync());
+            return View(pagedPolicy);
         }
 
         // GET: Policies/Details/5
@@ -83,7 +93,7 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Policy policy, IFormFile imageUpload)
+        public async Task<IActionResult> Create(Policy policy, IFormFile? imageUpload)
         {
             if (ModelState.IsValid)
             {
@@ -130,7 +140,7 @@ namespace HealthInsurance.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Policy policy, IFormFile imageUpload)
+        public async Task<IActionResult> Edit(int id, Policy policy, IFormFile? imageUpload)
         {
             if (id != policy.Id)
             {

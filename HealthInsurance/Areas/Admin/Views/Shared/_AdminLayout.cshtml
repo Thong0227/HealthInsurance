@@ -71,6 +71,12 @@
                     News
                 </a>
             </li>
+            <li>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="nav-link @(viewingNews ? "active" : "")">
+                    <i class="fa-solid fa-square-caret-left"></i>
+                    Back to Client
+                </a>
+            </li>
         </ul>
         <a class="w-100" href="/Account/Logout">
             <button class="btn btn-light w-100 fw-semibold">

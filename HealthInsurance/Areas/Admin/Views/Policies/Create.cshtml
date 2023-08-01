@@ -12,49 +12,51 @@
     <div class="col-md-8">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Description" class="control-label"></label>
-                <textarea id="Description" asp-for="Description"></textarea>
-                <span asp-validation-for="Description" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Emi" class="control-label"></label>
-                <input asp-for="Emi" class="form-control" />
-                <span asp-validation-for="Emi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Amount" class="control-label"></label>
-                <input asp-for="Amount" class="form-control" />
-                <span asp-validation-for="Amount" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label>Image:</label>
-                <input type="file" name="imageUpload" class="form-control-file" />
-            </div>
-            
-            <div class="form-group">
-                <label asp-for="Content" class="control-label"></label>
-                <textarea id="Content" asp-for="Content"></textarea>
-                <span asp-validation-for="Content" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HospitalId" class="control-label"></label>
-                <select asp-for="HospitalId" class ="form-control" asp-items="ViewBag.HospitalId"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" id="btnCreate"/>
+            <div class="row border p-3">
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label asp-for="Name" class="control-label"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Emi" class="control-label"></label>
+                        <input asp-for="Emi" class="form-control" />
+                        <span asp-validation-for="Emi" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Amount" class="control-label"></label>
+                        <input asp-for="Amount" class="form-control" />
+                        <span asp-validation-for="Amount" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6">
+                    <div class="form-group">
+                        <label class="control-label">Hospital</label>
+                        <select asp-for="HospitalId" class="form-control" asp-items="ViewBag.HospitalId"></select>
+                    </div>
+                    <div style="margin-top:40px;">
+                        <label>Image:</label>
+                        <input type="file" name="imageUpload" class="form-control-file" />
+                    </div>
+                </div>
+                <div class="form-group col-12">
+                    <label asp-for="Description" class="control-label"></label>
+                    <textarea id="Description" asp-for="Description"></textarea>
+                    <span asp-validation-for="Description" class="text-danger"></span>
+                </div>
+                <div class="form-group col-12">
+                    <label asp-for="Content" class="control-label"></label>
+                    <textarea id="Content" asp-for="Content"></textarea>
+                    <span asp-validation-for="Content" class="text-danger"></span>
+                </div>
+                <div class="form-group col-12 d-flex justify-content-end">
+                    <input type="submit" value="Create" class="btn btn-primary me-3" id="btnCreate" />
+                    <a asp-action="Index" class="btn">Cancel</a>
+                </div>
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>
 <script src="~/lib/build/ckeditor.js"></script>
 <script>

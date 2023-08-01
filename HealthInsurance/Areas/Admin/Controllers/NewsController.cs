@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using HealthInsurance.Areas.Admin.Models;
 using HealthInsurance.Data;
 using HealthInsurance.Models;
+using X.PagedList;
 
 namespace HealthInsurance.Areas.Admin.Controllers
 {
@@ -22,20 +23,28 @@ namespace HealthInsurance.Areas.Admin.Controllers
         }
 
         // GET: Admin/News
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-            return View(await _context.News.ToListAsync());
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
+            var news = await _context.News.ToListAsync();
+            IPagedList<News> pagedNews = news.ToPagedList(pageNumber, pageSize);
+            return View(pagedNews);
         }
         [HttpPost]
-        public async Task<IActionResult> Index(string keyword)
+        public async Task<IActionResult> Index(string keyword, int? page)
         {
             var news = _context.News.AsQueryable();
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
             if (!string.IsNullOrEmpty(keyword))
             {
                 news = news.Where(n => n.Title.Contains(keyword));
             }
+            var newsList = await news.ToListAsync();
+            IPagedList<News> pagedNews = newsList.ToPagedList(pageNumber, pageSize);
             ViewBag.keyword = keyword;
-            return View(await news.ToListAsync());
+            return View(pagedNews);
         }
 
         // GET: Admin/News/Details/5

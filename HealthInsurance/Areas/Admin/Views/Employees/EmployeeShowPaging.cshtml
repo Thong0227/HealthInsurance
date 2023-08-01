@@ -1,16 +1,18 @@
-﻿@model X.PagedList.IPagedList<HealthInsurance.Models.PolicyOnEmp>
+﻿@model X.PagedList.IPagedList<HealthInsurance.Models.Employee>
 @using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Manager Policy Request</h1>
+<h1>Employee List</h1>
 <div class="searchInner">
     <form method="post">
         <div class="row">
             <div class="searchField col-md-4 col-6">
-                <input type="text" name="keyword" value="@ViewBag.keyword" placeholder="Search policy or employee here..." />
+                <input type="text" name="keyword" value="@ViewBag.keyword" placeholder="Search content here..." />
+            </div>
+            <div class="searchField col-md-4 col-6">
+                <input type="text" name="role" value="@ViewBag.role" placeholder="Role" />
             </div>
             <div class="btnFilter col-md col-12">
                 <input type="submit" value="Filter" class="btn btn-primary" />
@@ -18,27 +20,35 @@
         </div>
     </form>
 </div>
-
 <div class="btnCreateNew">
     <a asp-action="Create">Create New</a>
 </div>
-<table class="table">
+<table class="table table-hover table-borderless">
     <thead>
         <tr>
             <th>
-                Policy
+                UserName
             </th>
             <th>
-                Employee
+                Password
             </th>
             <th>
-                EmiSubmitted
+                FullName
             </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+            </th>*@
             <th>
-                StartDate
+                Email
             </th>
+            @*<th>
+            @Html.DisplayNameFor(model => model.Address)
+            </th>*@
+            @*<th>
+            @Html.DisplayNameFor(model => model.JoinDate)
+            </th>*@
             <th>
-                EndDate
+                UserRole
             </th>
             <th>
                 PolicyStatus
@@ -47,24 +57,32 @@
         </tr>
     </thead>
     <tbody>
-        
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Policy.Name)
+                    @Html.DisplayFor(modelItem => item.UserName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Employee.FullName)
+                    @Html.DisplayFor(modelItem => item.Password)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EmiSubmitted)
+                    @Html.DisplayFor(modelItem => item.FullName)
                 </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
+            </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.StartDate)
+                    @Html.DisplayFor(modelItem => item.Email)
                 </td>
+                @*<td>
+            @Html.DisplayFor(modelItem => item.Address)
+            </td>*@
+                @*<td>
+            @Html.DisplayFor(modelItem => item.JoinDate)
+            </td>*@
                 <td>
-                    @Html.DisplayFor(modelItem => item.EndDate)
+                    @Html.DisplayFor(modelItem => item.UserRole)
                 </td>
                 <td class="d-flex align-items-center">
                     @if (item.PolicyStatus.Equals(true))
@@ -93,9 +111,9 @@
     </tbody>
 </table>
 <div>
-    @Html.PagedListPager(Model,page => Url.Action("Index"," PolicyOnEmps",new { page = page}))
+    @Html.PagedListPager(Model,page => Url.Action("ShowPaging","Employees",new { page = page}))
 </div>
+
 @*<script>
     let table = new DataTable('#tableData');
 </script>*@
-

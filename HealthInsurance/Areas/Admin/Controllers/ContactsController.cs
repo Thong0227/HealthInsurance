@@ -9,6 +9,8 @@ using HealthInsurance.Areas.Admin.Models;
 using HealthInsurance.Data;
 using System.Data;
 using Microsoft.AspNetCore.Authorization;
+using HealthInsurance.Models;
+using X.PagedList;
 
 namespace HealthInsurance.Areas.Admin.Controllers
 {
@@ -24,22 +26,34 @@ namespace HealthInsurance.Areas.Admin.Controllers
         }
 
         // GET: Admin/Contacts
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(int? page)
         {
-              return _context.Contact != null ? 
-                          View(await _context.Contact.ToListAsync()) :
-                          Problem("Entity set 'HealthInsuranceContext.Contact'  is null.");
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
+            var contacts = await _context.Contact.ToListAsync();
+            IPagedList<Contact> pageContact = contacts.ToPagedList(pageNumber, pageSize);
+            return View(pageContact);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Index(string keyword)
+        public async Task<IActionResult> Index(string keyword,string phone, int? page)
         {
+            int pageSize = 6; // Số lượng phần tử trên mỗi trang
+            int pageNumber = (page ?? 1); // Số trang hiện tại, nếu không có thì mặc định là trang 1
             var contact = _context.Contact.AsQueryable();
             if (!string.IsNullOrEmpty(keyword))
             {
                 contact = contact.Where(x => x.FullName.Contains(keyword) || x.Email.Contains(keyword));
             }
-            return View(await contact.ToListAsync());
+            if (!string.IsNullOrEmpty(phone))
+            {
+                contact = contact.Where(x => x.Phone.Contains(phone));
+            }
+            var contacts = await contact.ToListAsync();
+            IPagedList<Contact> pageContact = contacts.ToPagedList(pageNumber, pageSize);
+            ViewBag.keyword = keyword;
+            ViewBag.phone = phone;
+            return View(pageContact);
         }
 
 

@@ -1,32 +1,45 @@
-﻿@model IEnumerable<HealthInsurance.Models.Employee>
-
+﻿@model X.PagedList.IPagedList<HealthInsurance.Models.Employee>
+@using X.PagedList.Mvc.Core
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
-
-<h1>Manager Employee</h1>
-
-<p>
+<h1>Employee List</h1>
+<div class="searchInner">
+    <form asp-action="Index" method="post">
+        <div class="row">
+            <div class="searchField col-md-4 col-6">
+                <input type="text" name="keyword" value="@ViewBag.keyword" placeholder="Search content here..." />
+            </div>
+            <div class="searchField col-md-4 col-6">
+                <input type="text" name="role" value="@ViewBag.role" placeholder="Role" />
+            </div>
+            <div class="btnFilter col-md col-12">
+                <input type="submit" value="Filter" class="btn btn-primary" />
+            </div>
+        </div>
+    </form>
+</div>
+<div class="btnCreateNew">
     <a asp-action="Create">Create New</a>
-</p>
-<table class="table table-hover table-borderless" id="tableData">
+</div>
+<table class="table table-hover table-borderless">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.UserName)
+                UserName
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Password)
+                Password
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.FullName)
+                FullName
             </th>
             @*<th>
             @Html.DisplayNameFor(model => model.DateOfBirth)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.Email)
+                Email
             </th>
             @*<th>
             @Html.DisplayNameFor(model => model.Address)
@@ -35,10 +48,10 @@
             @Html.DisplayNameFor(model => model.JoinDate)
             </th>*@
             <th>
-                @Html.DisplayNameFor(model => model.UserRole)
+                UserRole
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PolicyStatus)
+                PolicyStatus
             </th>
             <th></th>
         </tr>
@@ -97,6 +110,10 @@
         }
     </tbody>
 </table>
-<script>
+<div>
+    @Html.PagedListPager(Model,page => Url.Action("Index","Employees",new { page = page}))
+</div>
+
+@*<script>
     let table = new DataTable('#tableData');
-</script>
+</script>*@
