@@ -35,8 +35,9 @@ namespace HealthInsurance.Controllers
             {
                 _context.Add(contact);
                 await _context.SaveChangesAsync();
+                return Json(new { success = true});
             }
-            return RedirectToAction("Index", "Contact");
+            return Json(new { success = false, errors = ModelState.Values.SelectMany(v => v.Errors) });
         }
     }
 }

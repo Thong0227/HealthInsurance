@@ -1,5 +1,6 @@
 ﻿@{
     var currentRoute = ViewContext.RouteData.Values["controller"].ToString().ToLower();
+    var viewingDashboard = currentRoute == "dashboard";
     var viewingEmployees = currentRoute == "employees";
     var viewingHospitals = currentRoute == "hospitals";
     var viewingPolicies = currentRoute == "policies";
@@ -36,6 +37,12 @@
         </div>
         <ul class="nav nav-pills flex-column mb-auto">
             <li class="nav-item">
+                <a class="nav-link @(viewingDashboard ? "active" : "")" asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
                 <a class="nav-link @(viewingEmployees ? "active" : "")" aria-current="page" asp-area="Admin" asp-controller="Employees" asp-action="Index">
                     <i class="fa-solid fa-users text-center" style="width: 20px;"></i>
                     Employees
@@ -60,7 +67,7 @@
                 </a>
             </li>
             <li>
-                <a asp-area="Admin" asp-controller="Contacts" class="nav-link @(viewingContacts ? "active" : "")">
+                <a asp-area="Admin" asp-controller="Contacts" asp-action="Index" class="nav-link @(viewingContacts ? "active" : "")">
                     <i class="fa-solid fa-envelope text-center" style="width: 20px;"></i>
                     Contacts
                 </a>

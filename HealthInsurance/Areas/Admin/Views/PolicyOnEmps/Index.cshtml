@@ -58,7 +58,7 @@
                     @Html.DisplayFor(modelItem => item.Employee.FullName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.EmiSubmitted)
+                    $@(((decimal)item.EmiSubmitted).ToString("#,##0.##"))
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.StartDate)

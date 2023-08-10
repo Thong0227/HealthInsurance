@@ -151,3 +151,6 @@ header{
     left: 40%;
     z-index:1001;
 }
+.img-policies img {
+    height: 290px;
+}
